@@ -14,6 +14,14 @@ from .helpers import (
     cast_int_or_default
 )
 from .organization import DATE_FORMAT, TIME_FORMAT  # noqa
+import anyconfig
+import os
+import pathlib
+
+
+redash_local_config = pathlib.Path(os.environ.get('REDASH_LOCAL_CONFIG')).expanduser().absolute()
+local_settings = anyconfig.load(redash_local_config.__str__())
+# print(local_settings)
 
 # _REDIS_URL is the unchanged REDIS_URL we get from env vars, to be used later with RQ
 _REDIS_URL = os.environ.get(
@@ -64,7 +72,7 @@ INVITATION_TOKEN_MAX_AGE = int(
 )
 
 # The secret key to use in the Flask app for various cryptographic features
-SECRET_KEY = os.environ.get("REDASH_COOKIE_SECRET")
+SECRET_KEY = local_settings['REDASH_COOKIE_SECRET']
 
 if SECRET_KEY is None:
     raise Exception("You must set the REDASH_COOKIE_SECRET environment variable. Visit http://redash.io/help/open-source/admin-guide/secrets for more information.")

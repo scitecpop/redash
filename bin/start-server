@@ -1,0 +1,3 @@
+swd=$(dirname $0)
+cd $swd
+../.env/bin/gunicorn -c ../etc/gunicorn.conf.py -e REDASH_LOCAL_CONFIG=~/.redash/config.yaml  "redash.app:create_app()"

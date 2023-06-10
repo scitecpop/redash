@@ -1,0 +1,3 @@
+swd=$(dirname $0)
+cd $swd
+REDASH_LOCAL_CONFIG=~/.redash/config.yaml ../.env/bin/python ../manage.py rq scheduler
