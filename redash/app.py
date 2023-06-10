@@ -12,7 +12,7 @@ class Redash(Flask):
             {
                 "template_folder": settings.FLASK_TEMPLATE_PATH,
                 "static_folder": settings.STATIC_ASSETS_PATH,
-                "static_url_path": f"{settings.local_settings['CDN_PREFIX']}",
+                "static_url_path": "/static",
             }
         )
         super(Redash, self).__init__(__name__, *args, **kwargs)
