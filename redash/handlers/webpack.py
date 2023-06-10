@@ -4,16 +4,15 @@ from flask import url_for
 import pathlib
 
 
-# WEBPACK_MANIFEST_PATH = os.path.join(
-#     os.path.dirname(__file__), "../../client/dist/", "asset-manifest.json"
-# )
-
-WEBPACK_MANIFEST_PATH = pathlib.Path(
-    os.environ.get('REDASH_FRONTEND_ROOT')
-).joinpath('asset-manifest.json').__str__()
+from redash.settings import local_settings
 
 
-CDN_PREFIX = os.environ.get('REDASH_CDN_PREFIX')
+REDASH_FRONTEND_ROOT = local_settings['FRONTEND_ROOT']
+CDN_PREFIX = local_settings['CDN_PREFIX']
+
+WEBPACK_MANIFEST_PATH = pathlib.Path(REDASH_FRONTEND_ROOT).joinpath('asset-manifest.json').__str__()
+
+
 
 
 def configure_webpack(app):
