@@ -46,6 +46,7 @@ def create_tables():
     """Create the database tables."""
     from redash.models import db
 
+
     _wait_for_db_connection(db)
 
     # We need to make sure we run this only if the DB is empty, because otherwise calling

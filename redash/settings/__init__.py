@@ -25,7 +25,8 @@ local_settings = anyconfig.load(redash_local_config.__str__())
 
 # _REDIS_URL is the unchanged REDIS_URL we get from env vars, to be used later with RQ
 _REDIS_URL = os.environ.get(
-    "REDASH_REDIS_URL", os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+    # "REDASH_REDIS_URL", os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+    "REDASH_REDIS_URL", os.environ.get("REDIS_URL", local_settings['REDIS_URL'])
 )
 # This is the one to use for Redash' own connection:
 REDIS_URL = add_decode_responses_to_redis_url(_REDIS_URL)
@@ -38,7 +39,8 @@ STATSD_USE_TAGS = parse_boolean(os.environ.get("REDASH_STATSD_USE_TAGS", "false"
 
 # Connection settings for Redash's own database (where we store the queries, results, etc)
 SQLALCHEMY_DATABASE_URI = os.environ.get(
-    "REDASH_DATABASE_URL", os.environ.get("DATABASE_URL", "postgresql:///postgres")
+    # "REDASH_DATABASE_URL", os.environ.get("DATABASE_URL", "postgresql:///postgres")
+    "REDASH_DATABASE_URL", os.environ.get("DATABASE_URL", local_settings['DATABASE_URI'])
 )
 SQLALCHEMY_MAX_OVERFLOW = int_or_none(os.environ.get("SQLALCHEMY_MAX_OVERFLOW"))
 SQLALCHEMY_POOL_SIZE = int_or_none(os.environ.get("SQLALCHEMY_POOL_SIZE"))
@@ -302,7 +304,7 @@ def email_server_is_configured():
     return MAIL_DEFAULT_SENDER is not None
 
 
-HOST = os.environ.get("REDASH_HOST", "")
+HOST = os.environ.get("REDASH_HOST", local_settings['REDASH_HOST'])
 
 SEND_FAILURE_EMAIL_INTERVAL = int(
     os.environ.get("REDASH_SEND_FAILURE_EMAIL_INTERVAL", 60)

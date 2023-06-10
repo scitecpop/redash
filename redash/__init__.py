@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import logging
 import os
+import pathlib
 import sys
 
 import redis
@@ -47,7 +48,7 @@ setup_logging()
 redis_connection = redis.from_url(settings.REDIS_URL)
 rq_redis_connection = redis.from_url(settings.RQ_REDIS_URL)
 mail = Mail()
-migrate = Migrate(compare_type=True)
+migrate = Migrate(compare_type=True, directory=pathlib.Path(__file__).parent.parent.joinpath('migrations').__str__())
 statsd_client = StatsClient(
     host=settings.STATSD_HOST, port=settings.STATSD_PORT, prefix=settings.STATSD_PREFIX
 )
