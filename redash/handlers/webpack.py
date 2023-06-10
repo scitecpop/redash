@@ -10,7 +10,7 @@ import pathlib
 
 WEBPACK_MANIFEST_PATH = pathlib.Path(
     os.environ.get('REDASH_FRONTEND_ROOT')
-).joinpath('asset-manifest.json')
+).joinpath('asset-manifest.json').__str__()
 
 
 CDN_PREFIX = os.environ.get('REDASH_CDN_PREFIX')
