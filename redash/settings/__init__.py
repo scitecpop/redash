@@ -168,7 +168,7 @@ CONTENT_SECURITY_POLICY_NONCE_IN = array_from_string(
 # for more information.
 REFERRER_POLICY = os.environ.get(
     # "REDASH_REFERRER_POLICY", "strict-origin-when-cross-origin"
-    "REDASH_REFERRER_POLICY", ""
+    "REDASH_REFERRER_POLICY", "no-referrer"
 )
 # Whether and how to send Feature-Policy response headers. Defaults to
 # an empty value.
