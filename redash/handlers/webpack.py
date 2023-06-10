@@ -1,10 +1,16 @@
 import os
 import simplejson
 from flask import url_for
+import pathlib
 
-WEBPACK_MANIFEST_PATH = os.path.join(
-    os.path.dirname(__file__), "../../client/dist/", "asset-manifest.json"
-)
+
+# WEBPACK_MANIFEST_PATH = os.path.join(
+#     os.path.dirname(__file__), "../../client/dist/", "asset-manifest.json"
+# )
+
+WEBPACK_MANIFEST_PATH = pathlib.Path(
+    os.environ.get('REDASH_FRONTEND_ROOT')
+).joinpath('asset-manifest.json')
 
 
 def configure_webpack(app):
