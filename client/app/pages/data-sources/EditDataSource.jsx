@@ -126,7 +126,7 @@ class EditDataSource extends React.Component {
           )}
         </div>
         <div className="text-center m-b-10">
-          <img className="p-5" src={`${IMG_ROOT}/${type.type}.png`} alt={type.name} width="64" />
+          <img className="p-5" src={`<%= htmlWebpackPlugin.options.staticPath %>${IMG_ROOT}/${type.type}.png`} alt={type.name} width="64" />
           <h3 className="m-0">{type.name}</h3>
         </div>
         <div className="col-md-4 col-md-offset-4 m-b-10">
