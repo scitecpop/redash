@@ -13,6 +13,9 @@ WEBPACK_MANIFEST_PATH = pathlib.Path(
 ).joinpath('asset-manifest.json')
 
 
+CDN_PREFIX = os.environ.get('REDASH_CDN_PREFIX')
+
+
 def configure_webpack(app):
     app.extensions["webpack"] = {"assets": None}
 
@@ -27,7 +30,8 @@ def configure_webpack(app):
                 app.logger.exception("Unable to load webpack manifest")
                 assets = {}
             app.extensions["webpack"]["assets"] = assets
-        return url_for("static", filename=assets.get(path, path))
+        # return url_for("static", filename=assets.get(path, path))
+        return f'{CDN_PREFIX}{assets.get(path, path)}'
 
     @app.context_processor
     def webpack_assets():
