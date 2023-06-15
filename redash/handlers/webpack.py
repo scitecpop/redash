@@ -4,16 +4,7 @@ from flask import url_for
 import pathlib
 
 
-from redash.settings import local_settings
-
-
-REDASH_FRONTEND_ROOT = local_settings['FRONTEND_ROOT']
-CDN_PREFIX = local_settings['CDN_PREFIX']
-
-WEBPACK_MANIFEST_PATH = pathlib.Path(REDASH_FRONTEND_ROOT).joinpath('asset-manifest.json').__str__()
-
-
-
+from redash.settings import WEBPACK_MANIFEST_PATH, CDN_PREFIX
 
 def configure_webpack(app):
     app.extensions["webpack"] = {"assets": None}

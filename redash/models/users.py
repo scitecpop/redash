@@ -4,7 +4,7 @@ import logging
 import time
 from functools import reduce
 from operator import or_
-
+from redash.utils.static import get_asset
 from flask import current_app as app, url_for, request_started
 from flask_login import current_user, AnonymousUserMixin, UserMixin
 from passlib.apps import custom_app_context as pwd_context
@@ -20,6 +20,7 @@ from redash.utils import generate_token, utcnow, dt_from_timestamp
 from .base import db, Column, GFKBase, key_type, primary_key
 from .mixins import TimestampMixin, BelongsToOrgMixin
 from .types import json_cast_property, MutableDict, MutableList
+
 
 logger = logging.getLogger(__name__)
 
@@ -175,8 +176,10 @@ class User(
         if self._profile_image_url is not None:
             return self._profile_image_url
 
-        email_md5 = hashlib.md5(self.email.lower().encode()).hexdigest()
-        return "https://www.gravatar.com/avatar/{}?s=40&d=identicon".format(email_md5)
+        # email_md5 = hashlib.md5(self.email.lower().encode()).hexdigest()
+        return get_asset('images/default-avatar.png')
+        # return url_for("static", filename='images/default-avatar.png')
+        #return "https://www.gravatar.com/avatar/{}?s=40&d=identicon".format(email_md5)
 
     @property
     def permissions(self):

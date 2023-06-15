@@ -21,7 +21,6 @@ import pathlib
 
 redash_local_config = pathlib.Path(os.environ.get('REDASH_LOCAL_CONFIG')).expanduser().absolute()
 local_settings = anyconfig.load(redash_local_config.__str__())
-# print(local_settings)
 
 # _REDIS_URL is the unchanged REDIS_URL we get from env vars, to be used later with RQ
 _REDIS_URL = os.environ.get(
@@ -36,6 +35,15 @@ STATSD_HOST = os.environ.get("REDASH_STATSD_HOST", "127.0.0.1")
 STATSD_PORT = int(os.environ.get("REDASH_STATSD_PORT", "8125"))
 STATSD_PREFIX = os.environ.get("REDASH_STATSD_PREFIX", "redash")
 STATSD_USE_TAGS = parse_boolean(os.environ.get("REDASH_STATSD_USE_TAGS", "false"))
+
+FRONTEND_DIR_ROOT = local_settings['FRONTEND_ROOT']
+if not FRONTEND_DIR_ROOT.endswith('/'):
+    FRONTEND_DIR_ROOT = FRONTEND_DIR_ROOT + '/'
+REDASH_FRONTEND_ROOT = FRONTEND_DIR_ROOT
+CDN_PREFIX = local_settings['CDN_PREFIX']
+
+WEBPACK_MANIFEST_PATH = pathlib.Path(REDASH_FRONTEND_ROOT).joinpath('asset-manifest.json').__str__()
+
 
 # Connection settings for Redash's own database (where we store the queries, results, etc)
 SQLALCHEMY_DATABASE_URI = os.environ.get(
