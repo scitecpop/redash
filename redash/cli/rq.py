@@ -21,6 +21,13 @@ from redash.tasks import (
 )
 from redash.worker import default_queues
 
+import platform
+import signal
+
+# Darwin表示MacOS系统
+if platform.system() == 'Darwin':
+    signal.SIGRTMIN = signal.SIGUSR1
+
 manager = AppGroup(help="RQ management commands.")
 
 
