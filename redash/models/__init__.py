@@ -122,7 +122,8 @@ class DataSource(BelongsToOrgMixin, db.Model):
             "syntax": self.query_runner.syntax,
             "paused": self.paused,
             "pause_reason": self.pause_reason,
-            "supports_auto_limit": self.query_runner.supports_auto_limit
+            # "supports_auto_limit": self.query_runner.supports_auto_limit,
+            "supports_auto_limit": True,
         }
 
         if all:
